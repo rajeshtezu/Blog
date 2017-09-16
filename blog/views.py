@@ -47,7 +47,7 @@ class DraftListView(LoginRequiredMixin, ListView):
 
 ### publish the post ###
 @login_required
-def post_publish(request):
+def post_publish(request,pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('post_detail', pk=pk)
@@ -61,8 +61,8 @@ def add_comment_to_post(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            commit.post = post  # ForeignKey relation. "commit.post" from Comment model and "post" from first line of this function
-            commit.save()
+            comment.post = post  # ForeignKey relation. "commit.post" from Comment model and "post" from first line of this function
+            comment.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()
