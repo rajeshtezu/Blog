@@ -43,7 +43,7 @@
             <li>
               <a href="{% url 'logout' %}">Log Out</a>
             </li>
-            <li>Welcome: {{user.username|title}}</li>
+            <li><a>Welcome: {{user.username|title}}</a></li>
           {% else %}
             <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
           {% endif %}
