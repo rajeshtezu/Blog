@@ -2,7 +2,7 @@
 
 {% block content %}
   <!-- Detail of post -->
-  <h1 class="posttitle loader">{{post.title}}</h1>
+  <h1 class="posttitle loader">{{post.title|title}}</h1>
   {% if post.published_date %}
     <div class="date postdate">
       {{post.published_date}}
@@ -43,7 +43,7 @@
       {% endif %}
 
       <p>{{comment.text|safe|linebreaks}}</p>
-      <p>Posted by: {{comment.author}}</p>
+      <p>Posted by: {{comment.author|title}}</p>
 
     {% endif %}
     {% empty %}
