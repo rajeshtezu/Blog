@@ -15,3 +15,5 @@ Blog website written in django 1.11
 ![Post detail](/siteImages/blog7.png?raw=true "Post detail")
 ## Commenting on a Post
 ![Comment](/siteImages/blog8.png?raw=true "Comment")
+
+You might have noticed color of text and some buttons keep changing :)
