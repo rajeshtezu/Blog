@@ -22,23 +22,24 @@ class PostDetailView(DetailView):
     model = Post
 
 class CreatePostView(LoginRequiredMixin, CreateView):
-    login_url = '/login/'
+    login_url = '/account/login/'
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
-    login_url = '/login/'
+    login_url = '/account/login/'
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/account/login/'
     model = Post
     success_url = reverse_lazy('post_list') # reverse_lazy make sure that post is deleted, then redirect.
 
 class DraftListView(LoginRequiredMixin, ListView):
-    login_url = '/login/'
+    login_url = '/account/login/'
     redirect_field_name = 'blog/post_list.html'
     model = Post
 
