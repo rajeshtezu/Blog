@@ -63,7 +63,7 @@ def add_comment_to_post(request, pk):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post  # ForeignKey relation. "commit.post" from Comment model and "post" from first line of this function
-            comment.save()
+            comment.save()       # ie; connecting this comment to that post
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()
