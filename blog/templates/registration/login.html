@@ -14,7 +14,7 @@
       {% csrf_token %}
       {% bootstrap_form form %}
       <input type="submit" class="btn btn-primary" value="Login">
-      <input type="hidden" name="next" value="{{next}}">
+      <input type="hidden" name="next" value="{{next}}"> <!-- Didn't find any use -->
     </form>
   </div>
 {% endblock %}

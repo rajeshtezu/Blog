@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views
+from blog.views import SignUp
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),  # Anything but /admin/
-    url(r'account/login/$', views.login, name='login'),
-    url(r'account/logout/$', views.logout, name='logout', kwargs={'next_page':'/'}),
+    url(r'^account/signup/$', SignUp.as_view(), name='signup'),
+    url(r'^account/login/$', views.login, name='login'),
+    url(r'^account/logout/$', views.logout, name='logout', kwargs={'next_page':'/'}),
 ]
