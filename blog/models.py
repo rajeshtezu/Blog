@@ -2,7 +2,10 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Create your models here.
+
 
 class CommonField(models.Model):
     text = models.TextField()
@@ -13,10 +16,9 @@ class CommonField(models.Model):
 
 
 class Post(CommonField):
-    author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
-    #text = models.TextField()
-    #created_date = models.DateTimeField(default=timezone.now)
+    #author = models.ForeignKey('auth.User')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
@@ -34,9 +36,8 @@ class Post(CommonField):
 
 class Comment(CommonField):
     post = models.ForeignKey('blog.Post', related_name='comments')
-    author = models.CharField(max_length=200)
-    #text = models.TextField()
-    #created_date = models.DateTimeField(default=timezone.now)
+    # author = models.CharField(max_length=200)
+    author = models.ForeignKey(User)
     approved_comment = models.BooleanField(default=False)
 
     def approve(self):

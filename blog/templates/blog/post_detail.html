@@ -5,6 +5,7 @@
   <h1 class="posttitle loader">{{post.title|title}}</h1>
   {% if post.published_date %}
     <div class="date postdate">
+      <p>Author: {{post.author}}</p>
       {{post.published_date}}
     </div>
   {% else %}
@@ -43,7 +44,7 @@
       {% endif %}
 
       <p>{{comment.text|safe|linebreaks}}</p>
-      <p>Posted by: {{comment.author|title}}</p>
+      <p>Posted by: {{comment.author}}</p>
 
     {% endif %}
     {% empty %}

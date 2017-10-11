@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin  # For CBV
 from django.views.generic import (TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView)
 
-
+from braces.views import SelectRelatedMixin
 # Create your views here.
 
 class SignUp(CreateView):
@@ -27,11 +27,18 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
-class CreatePostView(LoginRequiredMixin, CreateView):
+class CreatePostView(LoginRequiredMixin, SelectRelatedMixin, CreateView):
     login_url = '/account/login/'
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+        print("working...")
+        return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/account/login/'
@@ -53,7 +60,7 @@ class DraftListView(LoginRequiredMixin, ListView):
         return Post.objects.filter(published_date__isnull=True).order_by('created_date')
 
 ### publish the post ###
-@login_required
+@login_required(login_url="/account/login/")
 def post_publish(request,pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
@@ -61,27 +68,28 @@ def post_publish(request,pk):
 
 
 #### comment section ####
-#@login_required
+@login_required(login_url="/account/login/")
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post = post  # ForeignKey relation. "commit.post" from Comment model and "post" from first line of this function
-            comment.save()       # ie; connecting this comment to that post
+            comment.post = post           # ForeignKey relation. "commit.post" from Comment model and "post" from first line of this function
+            comment.author = request.user # ie; connecting this comment to that post
+            comment.save()
             return redirect('post_detail', pk=post.pk)
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form':form})
 
-@login_required
+@login_required(login_url="/account/login/")
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()  # user defined method. check Comment model.
     return redirect('post_detail', pk=comment.post.pk) # pk of post
 
-@login_required
+@login_required(login_url="/account/login/")
 def comment_remove(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     post_pk = comment.post.pk
