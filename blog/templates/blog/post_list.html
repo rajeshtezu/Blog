@@ -2,15 +2,15 @@
 
 {% block content %}
   <div class="centerstage">
-    {% for post in post_list %}
-    <div class="post">
-      <h1><a style="text-decoration:none;" href="{% url 'post_detail' pk=post.pk %}">{{post.title|title}}</a></h1>
-      <div class="date">
-        <p>Author: {{post.author}}</p>
-        <p>Published on: {{post.published_date|date:"d M Y"}}</p>
-      </div>
-      <a style="text-decoration:none;" href="{% url 'post_detail' pk=post.pk %}">Comments: {{post.approved_comments.count}}</a>
-    </div>
-    {% endfor %}
+      {% for post in post_list %}
+        <div class="post">
+          <h1><a style="text-decoration:none;" href="{% url 'post_detail' pk=post.pk %}">{{post.title|title}}</a></h1>
+          <div class="date">
+            <p>Author: {{post.author}}</p>
+            <p>Published on: {{post.published_date|date:"d M Y"}}</p>
+          </div>
+          <a style="text-decoration:none;" href="{% url 'post_detail' pk=post.pk %}">Comments: {{post.approved_comments.count}}</a>
+        </div>
+      {% endfor %}
   </div>
 {% endblock %}
