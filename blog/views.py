@@ -16,7 +16,7 @@ class SignUp(CreateView):
     template_name = 'blog/signup.html'
 
 class AboutView(TemplateView):
-    template_name = 'about.html'
+    template_name = 'blog/about.html'
 
 class PostListView(ListView):
     model = Post

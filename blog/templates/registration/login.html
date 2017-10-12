@@ -15,5 +15,7 @@
       <input type="submit" class="btn btn-primary" value="Login">
       <input type="hidden" name="next" value="{{next}}"> <!-- Didn't find any use -->
     </form>
+    <hr>
+    <a class="pull-right" style="text-decoration: none;" href="{% url 'reset_password' %}">Forgotten Password?</a>
   </div>
 {% endblock %}
