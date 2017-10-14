@@ -4,6 +4,10 @@ from django import forms
 from blog.models import Post, Comment
 
 
+class PasswordResetRequestForm(forms.Form):
+    email_or_username = forms.CharField(label=("Email Or Username"), max_length=254)
+
+
 class UserCreateForm(UserCreationForm):
 
     class Meta:
