@@ -43,7 +43,7 @@
             <li>
               <a href="{% url 'logout' %}">Log Out</a>
             </li>
-            <li><a>Welcome: {{user.username|title}}</a></li>
+            <li><a> Welcome: {{user.username}}</a></li>
           {% else %}
             <li><a style="  margin-right:5px;" class="nav navbar-right" href="{% url 'login' %}">LogIn</a></li>
             <li><a style="background-color: #CD5C5C; color:white;" class="nav navbar-right" href="{% url 'signup' %}">Create an account</a></li>
